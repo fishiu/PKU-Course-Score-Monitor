@@ -8,8 +8,8 @@ function getTerm()
     global $config;
     $token = $config['helperToken'];
     $urlPattern = "https://pkuhelper.pku.edu.cn/api_xmcp/isop/scores?user_token=";
-//    $dataStr = file_get_contents($urlPattern . $token);
-    $dataStr = file_get_contents('./tmp.json');
+    $dataStr = file_get_contents($urlPattern . $token);
+//    $dataStr = file_get_contents('./tmp.json');
     $data = json_decode($dataStr, true);
     $scoreData = $data['cjxx'];
     $termData = [];
