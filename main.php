@@ -8,8 +8,8 @@ function getTerm()
     global $config;
     $token = $config['helperToken'];
     $urlPattern = "https://pkuhelper.pku.edu.cn/api_xmcp/isop/scores?user_token=";
-    $dataStr = file_get_contents($urlPattern . $token);
-//    $dataStr = file_get_contents('./tmp.json');
+//    $dataStr = file_get_contents($urlPattern . $token);
+    $dataStr = file_get_contents('./tmp.json');
     $data = json_decode($dataStr, true);
     $scoreData = $data['cjxx'];
     $termData = [];
@@ -46,8 +46,6 @@ function init()
         $userData['termCourse'][] = $termDatum['kch'];
     }
     sendMessage("[" . $userData['name'] . "出分监控] InitOK", "接下来帮你每隔1分钟查询期末出分情况～\n\n当前已出分" . sizeof($userData['termCourse']) . "门课程，静候佳音吧");
-    file_put_contents("./users.json", json_encode($userData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-
 }
 
 function getNew()
@@ -89,5 +87,5 @@ for ($i = 0; sizeof($userData['termCourse']) <= 9; $i++) {
             sendMessage($title, $content);
         }
     }
-    sleep(2);
+    sleep($config['timeGap']);
 }
